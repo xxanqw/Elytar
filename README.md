@@ -1,6 +1,6 @@
 # Elytar
 
-A high-performance, Minotar-like skin avatar API for `Ely.by`, built with `.NET 10` and `SixLabors.ImageSharp`.
+A high-performance, Minotar-like skin avatar API for `Ely.by`, built with `.NET 9` and `SixLabors.ImageSharp`.
 
 ## Features
 
