@@ -149,7 +149,9 @@ public class HomeController : ControllerBase
             <h2>Avatar</h2>
             <p>The standard face view of the player. Perfect for chat heads, tab lists, and comments.</p>
             <div class=""endpoint"">
-                GET /avatar/{username}?size={pixels}
+                GET /avatar/{username}?size={pixels}<br>
+                GET /{username}/{size}<br>
+                GET /{username}/{size}.png
             </div>
             </div>
             <div class=""visual"">
@@ -163,7 +165,9 @@ public class HomeController : ControllerBase
             <h2>Bust</h2>
             <p>A head and shoulders view. Great for profile pages and user cards.</p>
             <div class=""endpoint"">
-                GET /bust/{username}?size={pixels}
+                GET /bust/{username}?size={pixels}<br>
+                GET /bust/{username}/{size}<br>
+                GET /bust/{username}/{size}.png
             </div>
             </div>
             <div class=""visual"">
@@ -171,31 +175,50 @@ public class HomeController : ControllerBase
             </div>
         </div>
 
-        <!-- Skin Front Section -->
+        <!-- Body Front Section -->
         <div class=""section"">
             <div class=""info"">
             <h2>Body (Front)</h2>
             <p>The full body view from the front. Shows off the player's outfit in all its glory.</p>
             <div class=""endpoint"">
-                GET /skin/{username}?size={pixels}
+                GET /body/{username}?size={pixels}<br>
+                GET /body/{username}/{size}<br>
+                GET /body/{username}/{size}.png
             </div>
             </div>
             <div class=""visual"">
-            <img src=""/skin/AdiK_0din4re88?size=180"" alt=""AdiK_0din4re88"">
+            <img src=""/body/AdiK_0din4re88?size=180"" alt=""AdiK_0din4re88"">
             </div>
         </div>
 
-        <!-- Skin Back Section -->
+        <!-- Body Back Section -->
         <div class=""section"">
             <div class=""info"">
             <h2>Body (Back)</h2>
             <p>The full body view from the back. Because sometimes you need to see the back design. Naughty you!</p>
             <div class=""endpoint"">
-                GET /skin/back/{username}?size={pixels}
+                GET /body/back/{username}?size={pixels}<br>
+                GET /body/back/{username}/{size}<br>
+                GET /body/back/{username}/{size}.png
             </div>
             </div>
             <div class=""visual"">
-            <img src=""/skin/back/KEBEN?size=180"" alt=""KEBEN"">
+            <img src=""/body/back/KEBEN?size=180"" alt=""KEBEN"">
+            </div>
+        </div>
+
+        <!-- Raw Skin Section -->
+        <div class=""section"">
+            <div class=""info"">
+            <h2>Raw Skin</h2>
+            <p>The original skin texture file. Useful for skin editors or custom rendering.</p>
+            <div class=""endpoint"">
+                GET /skin/{username}<br>
+                GET /download/{username}
+            </div>
+            </div>
+            <div class=""visual"">
+            <img src=""/skin/kizaru123"" style=""width: 128px; height: 64px;"" alt=""Raw Skin"">
             </div>
         </div>
 

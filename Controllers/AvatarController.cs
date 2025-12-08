@@ -19,7 +19,11 @@ public class AvatarController : ControllerBase
     }
 
     [HttpGet("avatar/{username}")]
-    public async Task<IActionResult> GetAvatar(string username, [FromQuery] int size = 64)
+    [HttpGet("avatar/{username}/{size}")]
+    [HttpGet("avatar/{username}/{size}.png")]
+    [HttpGet("{username}/{size}")]
+    [HttpGet("{username}/{size}.png")]
+    public async Task<IActionResult> GetAvatar(string username, int size = 64)
     {
         if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9_]+$"))
             return BadRequest("Invalid username.");
@@ -38,26 +42,58 @@ public class AvatarController : ControllerBase
         await avatar.SaveAsPngAsync(ms);
         ms.Position = 0;
 
-        var imageUrl = $"{Request.Scheme}://{Request.Host}/avatar/{username}?size=64";
+        var imageUrl = $"{Request.Scheme}://{Request.Host}/avatar/{username}?size={size}";
         Response.Headers["Link"] = $"<{imageUrl}>; rel=\"icon\"; type=\"image/png\"";
 
         return File(ms, "image/png");
     }
 
-    [HttpGet("skin/{username}")]
-    public async Task<IActionResult> GetSkinFront(string username, [FromQuery] int size = 100)
+    [HttpGet("body/{username}")]
+    [HttpGet("body/{username}/{size}")]
+    [HttpGet("body/{username}/{size}.png")]
+    public async Task<IActionResult> GetBodyFront(string username, int size = 100)
     {
         return await RenderSkin(username, size, (img, s, isSlim) => _imageProcessingService.GetSkinFront(img, s, isSlim));
     }
 
-    [HttpGet("skin/back/{username}")]
-    public async Task<IActionResult> GetSkinBack(string username, [FromQuery] int size = 100)
+    [HttpGet("body/back/{username}")]
+    [HttpGet("body/back/{username}/{size}")]
+    [HttpGet("body/back/{username}/{size}.png")]
+    public async Task<IActionResult> GetBodyBack(string username, int size = 100)
     {
         return await RenderSkin(username, size, (img, s, isSlim) => _imageProcessingService.GetSkinBack(img, s, isSlim));
     }
 
+    [HttpGet("skin/{username}")]
+    public async Task<IActionResult> GetSkin(string username)
+    {
+        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9_]+$"))
+            return BadRequest("Invalid username.");
+
+        var skinBytes = await _elyByService.GetSkinAsync(username);
+        if (skinBytes == null)
+            return NotFound("Skin not found.");
+
+        return File(skinBytes, "image/png");
+    }
+
+    [HttpGet("download/{username}")]
+    public async Task<IActionResult> DownloadSkin(string username)
+    {
+        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9_]+$"))
+            return BadRequest("Invalid username.");
+
+        var skinBytes = await _elyByService.GetSkinAsync(username);
+        if (skinBytes == null)
+            return NotFound("Skin not found.");
+
+        return File(skinBytes, "image/png", $"{username}.png");
+    }
+
     [HttpGet("bust/{username}")]
-    public async Task<IActionResult> GetBust(string username, [FromQuery] int size = 100)
+    [HttpGet("bust/{username}/{size}")]
+    [HttpGet("bust/{username}/{size}.png")]
+    public async Task<IActionResult> GetBust(string username, int size = 100)
     {
         return await RenderSkin(username, size, (img, s, isSlim) => _imageProcessingService.GetBust(img, s, isSlim));
     }

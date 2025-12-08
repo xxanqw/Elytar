@@ -1,6 +1,6 @@
 # Elytar
 
-A high-performance, Minotar-like skin avatar API for `Ely.by`, built with `.NET 9` and `SixLabors.ImageSharp`.
+A high-performance, Minotar-like skin avatar API for `Ely.by`, built with `.NET 10` and `SixLabors.ImageSharp`.
 
 ## Features
 
@@ -39,26 +39,41 @@ All endpoints support an optional `size` parameter (default: 180, min: 8, max: 5
 ### Avatar
 ```
 GET /avatar/{username}?size={pixels}
+GET /{username}/{size}
+GET /{username}/{size}.png
 ```
 Returns the standard face view (8x8 head + hat).
 
 ### Bust
 ```
 GET /bust/{username}?size={pixels}
+GET /bust/{username}/{size}
+GET /bust/{username}/{size}.png
 ```
 Returns a head and shoulders render, including the second layer.
 
 ### Body (Front)
 ```
-GET /skin/{username}?size={pixels}
+GET /body/{username}?size={pixels}
+GET /body/{username}/{size}
+GET /body/{username}/{size}.png
 ```
 Returns the full body front view.
 
 ### Body (Back)
 ```
-GET /skin/back/{username}?size={pixels}
+GET /body/back/{username}?size={pixels}
+GET /body/back/{username}/{size}
+GET /body/back/{username}/{size}.png
 ```
 Returns the full body back view.
+
+### Raw Skin
+```
+GET /skin/{username}
+GET /download/{username}
+```
+Returns the unmodified skin texture. `/download/` forces a file download.
 
 ## Project Structure
 
