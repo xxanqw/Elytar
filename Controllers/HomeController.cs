@@ -218,13 +218,13 @@ public class HomeController : ControllerBase
             </div>
             </div>
             <div class=""visual"">
-            <img src=""/skin/kizaru123"" style=""width: 128px; height: 64px;"" alt=""Raw Skin"">
+            <img src=""/skin/Ellind"" alt=""Raw Skin"">
             </div>
         </div>
 
         <div class=""footer"">
             <p style=""margin-bottom:0"">Inspired by <a href=""https://minotar.net"" target=""_blank"">Minotar</a>.</p>
-            <p style=""margin-top:0"">Powered by .NET 10 & ImageSharp</p>
+            <p style=""margin-top:0"">Powered by .NET 9 & ImageSharp</p>
             <div class=""disclaimer"">
             <strong>Disclaimer:</strong> Not affiliated with Ely.by, Minecraft, Mojang, or Microsoft.
             </div>

@@ -25,7 +25,7 @@ public class ElyByService : IElyByService
 
         try
         {
-            var response = await _httpClient.GetAsync($"{BaseUrl}{username}");
+            var response = await _httpClient.GetAsync($"{BaseUrl}{Uri.EscapeDataString(username)}");
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();

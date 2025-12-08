@@ -25,7 +25,7 @@ public class AvatarController : ControllerBase
     [HttpGet("{username}/{size}.png")]
     public async Task<IActionResult> GetAvatar(string username, int size = 64)
     {
-        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9_]+$"))
+        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, @"^[\p{L}0-9\-_.!$%^&*()\[\]:;]+$"))
             return BadRequest("Invalid username.");
 
         if (size < 8 || size > 512)
@@ -67,7 +67,7 @@ public class AvatarController : ControllerBase
     [HttpGet("skin/{username}")]
     public async Task<IActionResult> GetSkin(string username)
     {
-        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9_]+$"))
+        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, @"^[\p{L}0-9\-_.!$%^&*()\[\]:;]+$"))
             return BadRequest("Invalid username.");
 
         var skinBytes = await _elyByService.GetSkinAsync(username);
@@ -80,7 +80,7 @@ public class AvatarController : ControllerBase
     [HttpGet("download/{username}")]
     public async Task<IActionResult> DownloadSkin(string username)
     {
-        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9_]+$"))
+        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, @"^[\p{L}0-9\-_.!$%^&*()\[\]:;]+$"))
             return BadRequest("Invalid username.");
 
         var skinBytes = await _elyByService.GetSkinAsync(username);
@@ -100,7 +100,7 @@ public class AvatarController : ControllerBase
 
     private async Task<IActionResult> RenderSkin(string username, int size, Func<Image<Rgba32>, int, bool, Image<Rgba32>> renderFunc)
     {
-        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9_]+$"))
+        if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, @"^[\p{L}0-9\-_.!$%^&*()\[\]:;]+$"))
             return BadRequest("Invalid username.");
 
         if (size < 8 || size > 512)
