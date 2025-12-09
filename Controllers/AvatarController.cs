@@ -19,11 +19,21 @@ public class AvatarController : ControllerBase
     }
 
     [HttpGet("avatar/{username}")]
+    public async Task<IActionResult> GetAvatar(string username, [FromQuery] int size = 64)
+    {
+        return await GetAvatarInternal(username, size);
+    }
+
     [HttpGet("avatar/{username}/{size}")]
     [HttpGet("avatar/{username}/{size}.png")]
     [HttpGet("{username}/{size}")]
     [HttpGet("{username}/{size}.png")]
-    public async Task<IActionResult> GetAvatar(string username, int size = 64)
+    public async Task<IActionResult> GetAvatarRoute(string username, int size)
+    {
+        return await GetAvatarInternal(username, size);
+    }
+
+    private async Task<IActionResult> GetAvatarInternal(string username, int size)
     {
         if (string.IsNullOrWhiteSpace(username) || !System.Text.RegularExpressions.Regex.IsMatch(username, @"^[\p{L}0-9\-_.!$%^&*()\[\]:;]+$"))
             return BadRequest("Invalid username.");
@@ -49,17 +59,27 @@ public class AvatarController : ControllerBase
     }
 
     [HttpGet("body/{username}")]
+    public async Task<IActionResult> GetBodyFront(string username, [FromQuery] int size = 100)
+    {
+        return await RenderSkin(username, size, (img, s, isSlim) => _imageProcessingService.GetSkinFront(img, s, isSlim));
+    }
+
     [HttpGet("body/{username}/{size}")]
     [HttpGet("body/{username}/{size}.png")]
-    public async Task<IActionResult> GetBodyFront(string username, int size = 100)
+    public async Task<IActionResult> GetBodyFrontRoute(string username, int size)
     {
         return await RenderSkin(username, size, (img, s, isSlim) => _imageProcessingService.GetSkinFront(img, s, isSlim));
     }
 
     [HttpGet("body/back/{username}")]
+    public async Task<IActionResult> GetBodyBack(string username, [FromQuery] int size = 100)
+    {
+        return await RenderSkin(username, size, (img, s, isSlim) => _imageProcessingService.GetSkinBack(img, s, isSlim));
+    }
+
     [HttpGet("body/back/{username}/{size}")]
     [HttpGet("body/back/{username}/{size}.png")]
-    public async Task<IActionResult> GetBodyBack(string username, int size = 100)
+    public async Task<IActionResult> GetBodyBackRoute(string username, int size)
     {
         return await RenderSkin(username, size, (img, s, isSlim) => _imageProcessingService.GetSkinBack(img, s, isSlim));
     }
@@ -91,9 +111,14 @@ public class AvatarController : ControllerBase
     }
 
     [HttpGet("bust/{username}")]
+    public async Task<IActionResult> GetBust(string username, [FromQuery] int size = 100)
+    {
+        return await RenderSkin(username, size, (img, s, isSlim) => _imageProcessingService.GetBust(img, s, isSlim));
+    }
+
     [HttpGet("bust/{username}/{size}")]
     [HttpGet("bust/{username}/{size}.png")]
-    public async Task<IActionResult> GetBust(string username, int size = 100)
+    public async Task<IActionResult> GetBustRoute(string username, int size)
     {
         return await RenderSkin(username, size, (img, s, isSlim) => _imageProcessingService.GetBust(img, s, isSlim));
     }
