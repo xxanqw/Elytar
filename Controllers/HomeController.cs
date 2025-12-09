@@ -448,7 +448,7 @@ public class HomeController : ControllerBase
         </main>
 
         <footer>
-            <p>Powered by .NET 10 & ImageSharp</p>
+            <p>Powered by .NET 9 & ImageSharp</p>
             <p style=""opacity: 0.6; font-size: 0.8rem;"">Not affiliated with Ely.by, Minecraft, Mojang, or Microsoft.</p>
         </footer>
     </div>
